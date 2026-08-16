@@ -10,7 +10,6 @@ on:
 
 jobs:
   quality:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -30,3 +29,14 @@ jobs:
 
       - name: Run tests
         run: pytest
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: quality
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t atlas-platform:latest .
